@@ -1,9 +1,0 @@
-.git
-.idea/
-gen/
-node_modules/
-KakaoLoginExample/
-image/
-
-src/**/*.ts
-!src/**/*.d.ts
