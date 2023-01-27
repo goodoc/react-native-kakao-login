@@ -1,5 +1,7 @@
 package com.dooboolab.kakaologins
 
+import android.os.Handler
+import android.os.Looper
 import com.facebook.react.bridge.*
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.model.AuthError
@@ -26,7 +28,9 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
                     if (error != null) {
                         if (error is AuthError && error.statusCode == 302) {
-                            this.loginWithKakaoAccount(promise)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                this.loginWithKakaoAccount(promise)
+                            }, 300)
                             return@loginWithKakaoTalk
                         }
                         promise.reject("RNKakaoLogins", error.message, error)
